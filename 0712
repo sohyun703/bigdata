@@ -1,0 +1,46 @@
+#pandas 패키지와 io 패키지 주가
+
+import pandas as pd
+import io
+
+chipo = pd.read_csv(io.BytesIO(uploaded['chipotle.tsv']),sep='\t')
+
+#read_csv -> pandas의 패키지 기능으로, csv파일을 읽어 데이터프레임 형태로 반환한다.
+
+#shape 속성은 데이터 프레임의 행과 열의 크기를 제공
+print(chipo.shape)
+print('-----------------')
+#info()는 데이터 프레임의 행과 열의 구성정보를 제공한다.
+print(chipo.info())
+
+#null -> 데이터가 비어 있음, object 타입 : 문자 타입
+
+chipo.head(10)
+
+#컬럼 (행) 정보
+print(chipo.columns)
+
+print('------------------------------------')
+
+#index 속성은 행에 대한 인덱스 정보를 제공
+
+print(chipo.index)
+
+#descirbe()로 수치형 피처들의 기초 통계량 확인하기
+
+#order_id (주문 번호) -> 수치형 피처, 비연속형 피처, 또한 주문번호의 숫자는 의미를 가지지 않기 때문에 astrpe()를 이용하여 문자열(str)로 형변환을 해준다.
+#astype() ->판다스에서 제공하는 함수로 형변환을 해줄 때 사용
+
+chipo['order_id'] =chipo['order_id'].astype(str) 
+
+#describe()로 수치형 피처들의 기초 통계량을 확인한다.
+
+print(chipo.describe())
+
+#unique()로 범주형 피처의 개수 출력하기
+
+#order_id의 유일한 범주 categoru의 개수를 출력하자
+
+print(len(chipo['order_id'].unique()))
+
+print(len(chipo['item_name'].unique()))
